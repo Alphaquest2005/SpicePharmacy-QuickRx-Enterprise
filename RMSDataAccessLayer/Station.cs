@@ -9,30 +9,152 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class Station
+    public partial class Station : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Station()
         {
-            this.TransactionBase = new HashSet<TransactionBase>();
-            this.Batch = new HashSet<Batch>();
+            this.TransactionBase = new ChangeTrackingCollection<TransactionBase>();
+            this.Batch = new ChangeTrackingCollection<Batch>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public int StationId { get; set; }
-        public string StationCode { get; set; }
-        public int StoreId { get; set; }
-        public string ReceiptPrinterName { get; set; }
-        public string MachineName { get; set; }
-        public string PrintServer { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public int StationId
+    	{ 
+    		get { return _StationId; }
+    		set
+    		{
+    			if (Equals(value, _StationId)) return;
+    			_StationId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _StationId;
+        
+    	public string StationCode
+    	{ 
+    		get { return _StationCode; }
+    		set
+    		{
+    			if (Equals(value, _StationCode)) return;
+    			_StationCode = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _StationCode;
+        
+    	public int StoreId
+    	{ 
+    		get { return _StoreId; }
+    		set
+    		{
+    			if (Equals(value, _StoreId)) return;
+    			_StoreId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _StoreId;
+        
+    	public string ReceiptPrinterName
+    	{ 
+    		get { return _ReceiptPrinterName; }
+    		set
+    		{
+    			if (Equals(value, _ReceiptPrinterName)) return;
+    			_ReceiptPrinterName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ReceiptPrinterName;
+        
+    	public string MachineName
+    	{ 
+    		get { return _MachineName; }
+    		set
+    		{
+    			if (Equals(value, _MachineName)) return;
+    			_MachineName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _MachineName;
+        
+    	public string PrintServer
+    	{ 
+    		get { return _PrintServer; }
+    		set
+    		{
+    			if (Equals(value, _PrintServer)) return;
+    			_PrintServer = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _PrintServer;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        public virtual Store Store { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionBase> TransactionBase { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Batch> Batch { get; set; }
+    	public Store Store
+    	{
+    		get { return _Store; }
+    		set
+    		{
+    			if (Equals(value, _Store)) return;
+    			_Store = value;
+    			StoreChangeTracker = _Store == null ? null
+    				: new ChangeTrackingCollection<Store> { _Store };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Store _Store;
+    	private ChangeTrackingCollection<Store> StoreChangeTracker { get; set; }
+    
+    	public ChangeTrackingCollection<TransactionBase> TransactionBase
+    	{
+    		get { return _TransactionBase; }
+    		set
+    		{
+    			if (Equals(value, _TransactionBase)) return;
+    			_TransactionBase = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<TransactionBase> _TransactionBase;
+    
+    	public ChangeTrackingCollection<Batch> Batch
+    	{
+    		get { return _Batch; }
+    		set
+    		{
+    			if (Equals(value, _Batch)) return;
+    			_Batch = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Batch> _Batch;
     }
 }

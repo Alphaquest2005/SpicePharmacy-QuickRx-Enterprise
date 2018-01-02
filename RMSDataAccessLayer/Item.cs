@@ -9,42 +9,282 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class Item
+    public partial class Item : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
             this.SalesTax = 0m;
-            this.TransactionEntryBase = new HashSet<TransactionEntryBase>();
-            this.ItemDosages = new HashSet<ItemDosage>();
+            this.TransactionEntryBase = new ChangeTrackingCollection<TransactionEntryBase>();
+            this.ItemDosages = new ChangeTrackingCollection<ItemDosage>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public string Description { get; set; }
-        public Nullable<bool> ItemNotDiscountable { get; set; }
-        public int ItemId { get; set; }
-        public string ItemLookupCode { get; set; }
-        public string Department { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
-        public Nullable<decimal> Cost { get; set; }
-        public double Quantity { get; set; }
-        public string ExtendedDescription { get; set; }
-        public Nullable<bool> Inactive { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<decimal> SalesTax { get; set; }
-        public string QBItemListID { get; set; }
-        public string UnitOfMeasure { get; set; }
-        public string ItemName { get; set; }
-        public string ItemNumber { get; set; }
-        public string Size { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public string Description
+    	{ 
+    		get { return _Description; }
+    		set
+    		{
+    			if (Equals(value, _Description)) return;
+    			_Description = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Description;
+        
+    	public Nullable<bool> ItemNotDiscountable
+    	{ 
+    		get { return _ItemNotDiscountable; }
+    		set
+    		{
+    			if (Equals(value, _ItemNotDiscountable)) return;
+    			_ItemNotDiscountable = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<bool> _ItemNotDiscountable;
+        
+    	public int ItemId
+    	{ 
+    		get { return _ItemId; }
+    		set
+    		{
+    			if (Equals(value, _ItemId)) return;
+    			_ItemId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _ItemId;
+        
+    	public string ItemLookupCode
+    	{ 
+    		get { return _ItemLookupCode; }
+    		set
+    		{
+    			if (Equals(value, _ItemLookupCode)) return;
+    			_ItemLookupCode = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ItemLookupCode;
+        
+    	public string Department
+    	{ 
+    		get { return _Department; }
+    		set
+    		{
+    			if (Equals(value, _Department)) return;
+    			_Department = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Department;
+        
+    	public string Category
+    	{ 
+    		get { return _Category; }
+    		set
+    		{
+    			if (Equals(value, _Category)) return;
+    			_Category = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Category;
+        
+    	public decimal Price
+    	{ 
+    		get { return _Price; }
+    		set
+    		{
+    			if (Equals(value, _Price)) return;
+    			_Price = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private decimal _Price;
+        
+    	public Nullable<decimal> Cost
+    	{ 
+    		get { return _Cost; }
+    		set
+    		{
+    			if (Equals(value, _Cost)) return;
+    			_Cost = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<decimal> _Cost;
+        
+    	public double Quantity
+    	{ 
+    		get { return _Quantity; }
+    		set
+    		{
+    			if (Equals(value, _Quantity)) return;
+    			_Quantity = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private double _Quantity;
+        
+    	public string ExtendedDescription
+    	{ 
+    		get { return _ExtendedDescription; }
+    		set
+    		{
+    			if (Equals(value, _ExtendedDescription)) return;
+    			_ExtendedDescription = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ExtendedDescription;
+        
+    	public Nullable<bool> Inactive
+    	{ 
+    		get { return _Inactive; }
+    		set
+    		{
+    			if (Equals(value, _Inactive)) return;
+    			_Inactive = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<bool> _Inactive;
+        
+    	public Nullable<System.DateTime> DateCreated
+    	{ 
+    		get { return _DateCreated; }
+    		set
+    		{
+    			if (Equals(value, _DateCreated)) return;
+    			_DateCreated = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<System.DateTime> _DateCreated;
+        
+    	public Nullable<decimal> SalesTax
+    	{ 
+    		get { return _SalesTax; }
+    		set
+    		{
+    			if (Equals(value, _SalesTax)) return;
+    			_SalesTax = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<decimal> _SalesTax;
+        
+    	public string QBItemListID
+    	{ 
+    		get { return _QBItemListID; }
+    		set
+    		{
+    			if (Equals(value, _QBItemListID)) return;
+    			_QBItemListID = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _QBItemListID;
+        
+    	public string UnitOfMeasure
+    	{ 
+    		get { return _UnitOfMeasure; }
+    		set
+    		{
+    			if (Equals(value, _UnitOfMeasure)) return;
+    			_UnitOfMeasure = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _UnitOfMeasure;
+        
+    	public string ItemName
+    	{ 
+    		get { return _ItemName; }
+    		set
+    		{
+    			if (Equals(value, _ItemName)) return;
+    			_ItemName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ItemName;
+        
+    	public string ItemNumber
+    	{ 
+    		get { return _ItemNumber; }
+    		set
+    		{
+    			if (Equals(value, _ItemNumber)) return;
+    			_ItemNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ItemNumber;
+        
+    	public string Size
+    	{ 
+    		get { return _Size; }
+    		set
+    		{
+    			if (Equals(value, _Size)) return;
+    			_Size = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Size;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionEntryBase> TransactionEntryBase { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ItemDosage> ItemDosages { get; set; }
+    	public ChangeTrackingCollection<TransactionEntryBase> TransactionEntryBase
+    	{
+    		get { return _TransactionEntryBase; }
+    		set
+    		{
+    			if (Equals(value, _TransactionEntryBase)) return;
+    			_TransactionEntryBase = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<TransactionEntryBase> _TransactionEntryBase;
+    
+    	public ChangeTrackingCollection<ItemDosage> ItemDosages
+    	{
+    		get { return _ItemDosages; }
+    		set
+    		{
+    			if (Equals(value, _ItemDosages)) return;
+    			_ItemDosages = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<ItemDosage> _ItemDosages;
     }
 }

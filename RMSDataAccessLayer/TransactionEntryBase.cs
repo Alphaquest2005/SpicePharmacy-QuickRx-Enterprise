@@ -9,34 +9,216 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class TransactionEntryBase
+    public partial class TransactionEntryBase : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TransactionEntryBase()
         {
             this.Quantity = 1m;
             this.Taxable = true;
             this.Discount = 0m;
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public int StoreID { get; set; }
-        public int TransactionEntryId { get; set; }
-        public int TransactionId { get; set; }
-        public decimal Price { get; set; }
-        public decimal Quantity { get; set; }
-        public bool Taxable { get; set; }
-        public string Comment { get; set; }
-        public Nullable<System.DateTime> TransactionTime { get; set; }
-        public decimal SalesTaxPercent { get; set; }
-        public Nullable<decimal> Discount { get; set; }
-        public Nullable<short> EntryNumber { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
-        public int ItemId { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public int StoreID
+    	{ 
+    		get { return _StoreID; }
+    		set
+    		{
+    			if (Equals(value, _StoreID)) return;
+    			_StoreID = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _StoreID;
+        
+    	public int TransactionEntryId
+    	{ 
+    		get { return _TransactionEntryId; }
+    		set
+    		{
+    			if (Equals(value, _TransactionEntryId)) return;
+    			_TransactionEntryId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _TransactionEntryId;
+        
+    	public int TransactionId
+    	{ 
+    		get { return _TransactionId; }
+    		set
+    		{
+    			if (Equals(value, _TransactionId)) return;
+    			_TransactionId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _TransactionId;
+        
+    	public decimal Price
+    	{ 
+    		get { return _Price; }
+    		set
+    		{
+    			if (Equals(value, _Price)) return;
+    			_Price = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private decimal _Price;
+        
+    	public decimal Quantity
+    	{ 
+    		get { return _Quantity; }
+    		set
+    		{
+    			if (Equals(value, _Quantity)) return;
+    			_Quantity = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private decimal _Quantity;
+        
+    	public bool Taxable
+    	{ 
+    		get { return _Taxable; }
+    		set
+    		{
+    			if (Equals(value, _Taxable)) return;
+    			_Taxable = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private bool _Taxable;
+        
+    	public string Comment
+    	{ 
+    		get { return _Comment; }
+    		set
+    		{
+    			if (Equals(value, _Comment)) return;
+    			_Comment = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Comment;
+        
+    	public Nullable<System.DateTime> TransactionTime
+    	{ 
+    		get { return _TransactionTime; }
+    		set
+    		{
+    			if (Equals(value, _TransactionTime)) return;
+    			_TransactionTime = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<System.DateTime> _TransactionTime;
+        
+    	public decimal SalesTaxPercent
+    	{ 
+    		get { return _SalesTaxPercent; }
+    		set
+    		{
+    			if (Equals(value, _SalesTaxPercent)) return;
+    			_SalesTaxPercent = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private decimal _SalesTaxPercent;
+        
+    	public Nullable<decimal> Discount
+    	{ 
+    		get { return _Discount; }
+    		set
+    		{
+    			if (Equals(value, _Discount)) return;
+    			_Discount = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<decimal> _Discount;
+        
+    	public Nullable<short> EntryNumber
+    	{ 
+    		get { return _EntryNumber; }
+    		set
+    		{
+    			if (Equals(value, _EntryNumber)) return;
+    			_EntryNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<short> _EntryNumber;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
+        
+    	public int ItemId
+    	{ 
+    		get { return _ItemId; }
+    		set
+    		{
+    			if (Equals(value, _ItemId)) return;
+    			_ItemId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _ItemId;
     
-        public virtual TransactionBase Transaction { get; set; }
-        public virtual Item Item { get; set; }
+    	public TransactionBase Transaction
+    	{
+    		get { return _Transaction; }
+    		set
+    		{
+    			if (Equals(value, _Transaction)) return;
+    			_Transaction = value;
+    			TransactionChangeTracker = _Transaction == null ? null
+    				: new ChangeTrackingCollection<TransactionBase> { _Transaction };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private TransactionBase _Transaction;
+    	private ChangeTrackingCollection<TransactionBase> TransactionChangeTracker { get; set; }
+    
+    	public Item Item
+    	{
+    		get { return _Item; }
+    		set
+    		{
+    			if (Equals(value, _Item)) return;
+    			_Item = value;
+    			ItemChangeTracker = _Item == null ? null
+    				: new ChangeTrackingCollection<Item> { _Item };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Item _Item;
+    	private ChangeTrackingCollection<Item> ItemChangeTracker { get; set; }
     }
 }

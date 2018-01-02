@@ -9,14 +9,61 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class PatientView
+    public partial class PatientView : EntityBase
     {
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public int PatientId { get; set; }
+        
+    	public string Name
+    	{ 
+    		get { return _Name; }
+    		set
+    		{
+    			if (Equals(value, _Name)) return;
+    			_Name = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Name;
+        
+    	public string PhoneNumber
+    	{ 
+    		get { return _PhoneNumber; }
+    		set
+    		{
+    			if (Equals(value, _PhoneNumber)) return;
+    			_PhoneNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _PhoneNumber;
+        
+    	public string Address
+    	{ 
+    		get { return _Address; }
+    		set
+    		{
+    			if (Equals(value, _Address)) return;
+    			_Address = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Address;
+        
+    	public int PatientId
+    	{ 
+    		get { return _PatientId; }
+    		set
+    		{
+    			if (Equals(value, _PatientId)) return;
+    			_PatientId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _PatientId;
     }
 }

@@ -9,15 +9,73 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class TransactionsView
+    public partial class TransactionsView : EntityBase
     {
-        public int TransactionId { get; set; }
-        public System.DateTime Time { get; set; }
-        public string ReferenceNumber { get; set; }
-        public Nullable<decimal> TotalSales { get; set; }
-        public Nullable<int> CustomerId { get; set; }
+        
+    	public int TransactionId
+    	{ 
+    		get { return _TransactionId; }
+    		set
+    		{
+    			if (Equals(value, _TransactionId)) return;
+    			_TransactionId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _TransactionId;
+        
+    	public System.DateTime Time
+    	{ 
+    		get { return _Time; }
+    		set
+    		{
+    			if (Equals(value, _Time)) return;
+    			_Time = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private System.DateTime _Time;
+        
+    	public string ReferenceNumber
+    	{ 
+    		get { return _ReferenceNumber; }
+    		set
+    		{
+    			if (Equals(value, _ReferenceNumber)) return;
+    			_ReferenceNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ReferenceNumber;
+        
+    	public Nullable<decimal> TotalSales
+    	{ 
+    		get { return _TotalSales; }
+    		set
+    		{
+    			if (Equals(value, _TotalSales)) return;
+    			_TotalSales = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<decimal> _TotalSales;
+        
+    	public Nullable<int> CustomerId
+    	{ 
+    		get { return _CustomerId; }
+    		set
+    		{
+    			if (Equals(value, _CustomerId)) return;
+    			_CustomerId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<int> _CustomerId;
     }
 }

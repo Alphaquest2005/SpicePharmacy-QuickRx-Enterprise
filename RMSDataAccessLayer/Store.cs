@@ -9,29 +9,141 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class Store
+    public partial class Store : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Store()
         {
             this.TransactionSeed = 0;
             this.SeedTransaction = 0;
-            this.Station = new HashSet<Station>();
+            this.Station = new ChangeTrackingCollection<Station>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public int StoreId { get; set; }
-        public string StoreCode { get; set; }
-        public string StoreAddress { get; set; }
-        public int CompanyId { get; set; }
-        public int TransactionSeed { get; set; }
-        public int SeedTransaction { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public int StoreId
+    	{ 
+    		get { return _StoreId; }
+    		set
+    		{
+    			if (Equals(value, _StoreId)) return;
+    			_StoreId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _StoreId;
+        
+    	public string StoreCode
+    	{ 
+    		get { return _StoreCode; }
+    		set
+    		{
+    			if (Equals(value, _StoreCode)) return;
+    			_StoreCode = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _StoreCode;
+        
+    	public string StoreAddress
+    	{ 
+    		get { return _StoreAddress; }
+    		set
+    		{
+    			if (Equals(value, _StoreAddress)) return;
+    			_StoreAddress = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _StoreAddress;
+        
+    	public int CompanyId
+    	{ 
+    		get { return _CompanyId; }
+    		set
+    		{
+    			if (Equals(value, _CompanyId)) return;
+    			_CompanyId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _CompanyId;
+        
+    	public int TransactionSeed
+    	{ 
+    		get { return _TransactionSeed; }
+    		set
+    		{
+    			if (Equals(value, _TransactionSeed)) return;
+    			_TransactionSeed = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _TransactionSeed;
+        
+    	public int SeedTransaction
+    	{ 
+    		get { return _SeedTransaction; }
+    		set
+    		{
+    			if (Equals(value, _SeedTransaction)) return;
+    			_SeedTransaction = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _SeedTransaction;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Station> Station { get; set; }
-        public virtual Company Company { get; set; }
+    	public ChangeTrackingCollection<Station> Station
+    	{
+    		get { return _Station; }
+    		set
+    		{
+    			if (Equals(value, _Station)) return;
+    			_Station = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Station> _Station;
+    
+    	public Company Company
+    	{
+    		get { return _Company; }
+    		set
+    		{
+    			if (Equals(value, _Company)) return;
+    			_Company = value;
+    			CompanyChangeTracker = _Company == null ? null
+    				: new ChangeTrackingCollection<Company> { _Company };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Company _Company;
+    	private ChangeTrackingCollection<Company> CompanyChangeTracker { get; set; }
     }
 }

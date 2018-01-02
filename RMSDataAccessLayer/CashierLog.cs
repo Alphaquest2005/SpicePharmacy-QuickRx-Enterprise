@@ -9,19 +9,112 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class CashierLog
+    public partial class CashierLog : EntityBase
     {
-        public int CashierLogId { get; set; }
-        public string MachineName { get; set; }
-        public System.DateTime LoginTime { get; set; }
-        public Nullable<System.DateTime> LogoutTime { get; set; }
-        public string Status { get; set; }
-        public int PersonId { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+        
+    	public int CashierLogId
+    	{ 
+    		get { return _CashierLogId; }
+    		set
+    		{
+    			if (Equals(value, _CashierLogId)) return;
+    			_CashierLogId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _CashierLogId;
+        
+    	public string MachineName
+    	{ 
+    		get { return _MachineName; }
+    		set
+    		{
+    			if (Equals(value, _MachineName)) return;
+    			_MachineName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _MachineName;
+        
+    	public System.DateTime LoginTime
+    	{ 
+    		get { return _LoginTime; }
+    		set
+    		{
+    			if (Equals(value, _LoginTime)) return;
+    			_LoginTime = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private System.DateTime _LoginTime;
+        
+    	public Nullable<System.DateTime> LogoutTime
+    	{ 
+    		get { return _LogoutTime; }
+    		set
+    		{
+    			if (Equals(value, _LogoutTime)) return;
+    			_LogoutTime = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<System.DateTime> _LogoutTime;
+        
+    	public string Status
+    	{ 
+    		get { return _Status; }
+    		set
+    		{
+    			if (Equals(value, _Status)) return;
+    			_Status = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Status;
+        
+    	public int PersonId
+    	{ 
+    		get { return _PersonId; }
+    		set
+    		{
+    			if (Equals(value, _PersonId)) return;
+    			_PersonId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _PersonId;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        public virtual Cashier Cashier { get; set; }
+    	public Cashier Cashier
+    	{
+    		get { return _Cashier; }
+    		set
+    		{
+    			if (Equals(value, _Cashier)) return;
+    			_Cashier = value;
+    			CashierChangeTracker = _Cashier == null ? null
+    				: new ChangeTrackingCollection<Cashier> { _Cashier };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Cashier _Cashier;
+    	private ChangeTrackingCollection<Cashier> CashierChangeTracker { get; set; }
     }
 }

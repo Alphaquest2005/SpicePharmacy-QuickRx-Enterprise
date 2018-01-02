@@ -9,12 +9,37 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
     public partial class Medicine : Item
     {
-        public string SuggestedDosage { get; set; }
-        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        
+    	public string SuggestedDosage
+    	{ 
+    		get { return _SuggestedDosage; }
+    		set
+    		{
+    			if (Equals(value, _SuggestedDosage)) return;
+    			_SuggestedDosage = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _SuggestedDosage;
+        
+    	public Nullable<System.DateTime> ExpiryDate
+    	{ 
+    		get { return _ExpiryDate; }
+    		set
+    		{
+    			if (Equals(value, _ExpiryDate)) return;
+    			_ExpiryDate = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<System.DateTime> _ExpiryDate;
     }
 }

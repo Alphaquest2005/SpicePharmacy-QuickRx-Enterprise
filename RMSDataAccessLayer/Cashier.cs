@@ -9,35 +9,140 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
     public partial class Cashier : Person
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cashier()
         {
-            this.TransactionBase = new HashSet<TransactionBase>();
-            this.CashierLog = new HashSet<CashierLog>();
-            this.Batch = new HashSet<Batch>();
-            this.Batch1 = new HashSet<Batch>();
-            this.TransactionBases1 = new HashSet<TransactionBase>();
+            this.TransactionBase = new ChangeTrackingCollection<TransactionBase>();
+            this.CashierLog = new ChangeTrackingCollection<CashierLog>();
+            this.Batch = new ChangeTrackingCollection<Batch>();
+            this.Batch1 = new ChangeTrackingCollection<Batch>();
+            this.TransactionBases1 = new ChangeTrackingCollection<TransactionBase>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public string SPassword { get; set; }
-        public string LoginName { get; set; }
-        public string Role { get; set; }
-        public string Initials { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public string SPassword
+    	{ 
+    		get { return _SPassword; }
+    		set
+    		{
+    			if (Equals(value, _SPassword)) return;
+    			_SPassword = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _SPassword;
+        
+    	public string LoginName
+    	{ 
+    		get { return _LoginName; }
+    		set
+    		{
+    			if (Equals(value, _LoginName)) return;
+    			_LoginName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _LoginName;
+        
+    	public string Role
+    	{ 
+    		get { return _Role; }
+    		set
+    		{
+    			if (Equals(value, _Role)) return;
+    			_Role = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Role;
+        
+    	public string Initials
+    	{ 
+    		get { return _Initials; }
+    		set
+    		{
+    			if (Equals(value, _Initials)) return;
+    			_Initials = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Initials;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionBase> TransactionBase { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CashierLog> CashierLog { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Batch> Batch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Batch> Batch1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionBase> TransactionBases1 { get; set; }
+    	public ChangeTrackingCollection<TransactionBase> TransactionBase
+    	{
+    		get { return _TransactionBase; }
+    		set
+    		{
+    			if (Equals(value, _TransactionBase)) return;
+    			_TransactionBase = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<TransactionBase> _TransactionBase;
+    
+    	public ChangeTrackingCollection<CashierLog> CashierLog
+    	{
+    		get { return _CashierLog; }
+    		set
+    		{
+    			if (Equals(value, _CashierLog)) return;
+    			_CashierLog = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<CashierLog> _CashierLog;
+    
+    	public ChangeTrackingCollection<Batch> Batch
+    	{
+    		get { return _Batch; }
+    		set
+    		{
+    			if (Equals(value, _Batch)) return;
+    			_Batch = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Batch> _Batch;
+    
+    	public ChangeTrackingCollection<Batch> Batch1
+    	{
+    		get { return _Batch1; }
+    		set
+    		{
+    			if (Equals(value, _Batch1)) return;
+    			_Batch1 = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Batch> _Batch1;
+    
+    	public ChangeTrackingCollection<TransactionBase> TransactionBases1
+    	{
+    		get { return _TransactionBases1; }
+    		set
+    		{
+    			if (Equals(value, _TransactionBases1)) return;
+    			_TransactionBases1 = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<TransactionBase> _TransactionBases1;
     }
 }

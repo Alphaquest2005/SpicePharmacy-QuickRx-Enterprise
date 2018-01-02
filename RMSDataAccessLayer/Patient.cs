@@ -9,22 +9,76 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
     public partial class Patient : Person
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Patient()
         {
-            this.Prescription = new HashSet<Prescription>();
+            this.Prescription = new ChangeTrackingCollection<Prescription>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public string Allergies { get; set; }
-        public string Guardian { get; set; }
-        public Nullable<double> Discount { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public string Allergies
+    	{ 
+    		get { return _Allergies; }
+    		set
+    		{
+    			if (Equals(value, _Allergies)) return;
+    			_Allergies = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Allergies;
+        
+    	public string Guardian
+    	{ 
+    		get { return _Guardian; }
+    		set
+    		{
+    			if (Equals(value, _Guardian)) return;
+    			_Guardian = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Guardian;
+        
+    	public Nullable<double> Discount
+    	{ 
+    		get { return _Discount; }
+    		set
+    		{
+    			if (Equals(value, _Discount)) return;
+    			_Discount = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<double> _Discount;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prescription> Prescription { get; set; }
+    	public ChangeTrackingCollection<Prescription> Prescription
+    	{
+    		get { return _Prescription; }
+    		set
+    		{
+    			if (Equals(value, _Prescription)) return;
+    			_Prescription = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Prescription> _Prescription;
     }
 }

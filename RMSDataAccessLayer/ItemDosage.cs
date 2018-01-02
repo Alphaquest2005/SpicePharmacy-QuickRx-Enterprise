@@ -9,15 +9,64 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class ItemDosage
+    public partial class ItemDosage : EntityBase
     {
-        public int ItemId { get; set; }
-        public string Dosage { get; set; }
-        public Nullable<int> Count { get; set; }
+        
+    	public int ItemId
+    	{ 
+    		get { return _ItemId; }
+    		set
+    		{
+    			if (Equals(value, _ItemId)) return;
+    			_ItemId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _ItemId;
+        
+    	public string Dosage
+    	{ 
+    		get { return _Dosage; }
+    		set
+    		{
+    			if (Equals(value, _Dosage)) return;
+    			_Dosage = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Dosage;
+        
+    	public Nullable<int> Count
+    	{ 
+    		get { return _Count; }
+    		set
+    		{
+    			if (Equals(value, _Count)) return;
+    			_Count = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<int> _Count;
     
-        public virtual Item Item { get; set; }
+    	public Item Item
+    	{
+    		get { return _Item; }
+    		set
+    		{
+    			if (Equals(value, _Item)) return;
+    			_Item = value;
+    			ItemChangeTracker = _Item == null ? null
+    				: new ChangeTrackingCollection<Item> { _Item };
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Item _Item;
+    	private ChangeTrackingCollection<Item> ItemChangeTracker { get; set; }
     }
 }

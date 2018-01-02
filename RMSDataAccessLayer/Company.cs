@@ -9,27 +9,136 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class Company
+    public partial class Company : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.Store = new HashSet<Store>();
+            this.Store = new ChangeTrackingCollection<Store>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public int CompanyId { get; set; }
-        public string CompanyName { get; set; }
-        public string Address { get; set; }
-        public string Address1 { get; set; }
-        public string SoftwareName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Motto { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public int CompanyId
+    	{ 
+    		get { return _CompanyId; }
+    		set
+    		{
+    			if (Equals(value, _CompanyId)) return;
+    			_CompanyId = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _CompanyId;
+        
+    	public string CompanyName
+    	{ 
+    		get { return _CompanyName; }
+    		set
+    		{
+    			if (Equals(value, _CompanyName)) return;
+    			_CompanyName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _CompanyName;
+        
+    	public string Address
+    	{ 
+    		get { return _Address; }
+    		set
+    		{
+    			if (Equals(value, _Address)) return;
+    			_Address = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Address;
+        
+    	public string Address1
+    	{ 
+    		get { return _Address1; }
+    		set
+    		{
+    			if (Equals(value, _Address1)) return;
+    			_Address1 = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Address1;
+        
+    	public string SoftwareName
+    	{ 
+    		get { return _SoftwareName; }
+    		set
+    		{
+    			if (Equals(value, _SoftwareName)) return;
+    			_SoftwareName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _SoftwareName;
+        
+    	public string PhoneNumber
+    	{ 
+    		get { return _PhoneNumber; }
+    		set
+    		{
+    			if (Equals(value, _PhoneNumber)) return;
+    			_PhoneNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _PhoneNumber;
+        
+    	public string Motto
+    	{ 
+    		get { return _Motto; }
+    		set
+    		{
+    			if (Equals(value, _Motto)) return;
+    			_Motto = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Motto;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Store> Store { get; set; }
+    	public ChangeTrackingCollection<Store> Store
+    	{
+    		get { return _Store; }
+    		set
+    		{
+    			if (Equals(value, _Store)) return;
+    			_Store = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Store> _Store;
     }
 }

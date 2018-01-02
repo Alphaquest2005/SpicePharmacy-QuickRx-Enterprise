@@ -9,31 +9,173 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class Person
+    public partial class Person : EntityBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
             this.InActive = false;
-            this.Transaction = new HashSet<TransactionBase>();
+            this.Transaction = new ChangeTrackingCollection<TransactionBase>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string CompanyName { get; set; }
-        public string Salutation { get; set; }
-        public string Address { get; set; }
-        public string PhoneNumber { get; set; }
-        public Nullable<bool> InActive { get; set; }
-        public Nullable<bool> Sex { get; set; }
-        public Nullable<System.DateTime> DOB { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public int Id
+    	{ 
+    		get { return _Id; }
+    		set
+    		{
+    			if (Equals(value, _Id)) return;
+    			_Id = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _Id;
+        
+    	public string FirstName
+    	{ 
+    		get { return _FirstName; }
+    		set
+    		{
+    			if (Equals(value, _FirstName)) return;
+    			_FirstName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _FirstName;
+        
+    	public string LastName
+    	{ 
+    		get { return _LastName; }
+    		set
+    		{
+    			if (Equals(value, _LastName)) return;
+    			_LastName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _LastName;
+        
+    	public string CompanyName
+    	{ 
+    		get { return _CompanyName; }
+    		set
+    		{
+    			if (Equals(value, _CompanyName)) return;
+    			_CompanyName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _CompanyName;
+        
+    	public string Salutation
+    	{ 
+    		get { return _Salutation; }
+    		set
+    		{
+    			if (Equals(value, _Salutation)) return;
+    			_Salutation = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Salutation;
+        
+    	public string Address
+    	{ 
+    		get { return _Address; }
+    		set
+    		{
+    			if (Equals(value, _Address)) return;
+    			_Address = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Address;
+        
+    	public string PhoneNumber
+    	{ 
+    		get { return _PhoneNumber; }
+    		set
+    		{
+    			if (Equals(value, _PhoneNumber)) return;
+    			_PhoneNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _PhoneNumber;
+        
+    	public Nullable<bool> InActive
+    	{ 
+    		get { return _InActive; }
+    		set
+    		{
+    			if (Equals(value, _InActive)) return;
+    			_InActive = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<bool> _InActive;
+        
+    	public Nullable<bool> Sex
+    	{ 
+    		get { return _Sex; }
+    		set
+    		{
+    			if (Equals(value, _Sex)) return;
+    			_Sex = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<bool> _Sex;
+        
+    	public Nullable<System.DateTime> DOB
+    	{ 
+    		get { return _DOB; }
+    		set
+    		{
+    			if (Equals(value, _DOB)) return;
+    			_DOB = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<System.DateTime> _DOB;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionBase> Transaction { get; set; }
+    	public ChangeTrackingCollection<TransactionBase> Transaction
+    	{
+    		get { return _Transaction; }
+    		set
+    		{
+    			if (Equals(value, _Transaction)) return;
+    			_Transaction = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<TransactionBase> _Transaction;
     }
 }

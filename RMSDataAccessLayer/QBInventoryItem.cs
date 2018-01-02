@@ -9,21 +9,145 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
-    public partial class QBInventoryItem
+    public partial class QBInventoryItem : EntityBase
     {
-        public string ListID { get; set; }
-        public string ItemDesc2 { get; set; }
-        public string ItemName { get; set; }
-        public string Size { get; set; }
-        public string DepartmentCode { get; set; }
-        public int ItemNumber { get; set; }
-        public string TaxCode { get; set; }
-        public Nullable<double> Price { get; set; }
-        public Nullable<double> Quantity { get; set; }
-        public string UnitOfMeasure { get; set; }
-        public byte[] EntryTimeStamp { get; set; }
+        
+    	public string ListID
+    	{ 
+    		get { return _ListID; }
+    		set
+    		{
+    			if (Equals(value, _ListID)) return;
+    			_ListID = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ListID;
+        
+    	public string ItemDesc2
+    	{ 
+    		get { return _ItemDesc2; }
+    		set
+    		{
+    			if (Equals(value, _ItemDesc2)) return;
+    			_ItemDesc2 = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ItemDesc2;
+        
+    	public string ItemName
+    	{ 
+    		get { return _ItemName; }
+    		set
+    		{
+    			if (Equals(value, _ItemName)) return;
+    			_ItemName = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _ItemName;
+        
+    	public string Size
+    	{ 
+    		get { return _Size; }
+    		set
+    		{
+    			if (Equals(value, _Size)) return;
+    			_Size = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Size;
+        
+    	public string DepartmentCode
+    	{ 
+    		get { return _DepartmentCode; }
+    		set
+    		{
+    			if (Equals(value, _DepartmentCode)) return;
+    			_DepartmentCode = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _DepartmentCode;
+        
+    	public int ItemNumber
+    	{ 
+    		get { return _ItemNumber; }
+    		set
+    		{
+    			if (Equals(value, _ItemNumber)) return;
+    			_ItemNumber = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private int _ItemNumber;
+        
+    	public string TaxCode
+    	{ 
+    		get { return _TaxCode; }
+    		set
+    		{
+    			if (Equals(value, _TaxCode)) return;
+    			_TaxCode = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _TaxCode;
+        
+    	public Nullable<double> Price
+    	{ 
+    		get { return _Price; }
+    		set
+    		{
+    			if (Equals(value, _Price)) return;
+    			_Price = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<double> _Price;
+        
+    	public Nullable<double> Quantity
+    	{ 
+    		get { return _Quantity; }
+    		set
+    		{
+    			if (Equals(value, _Quantity)) return;
+    			_Quantity = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private Nullable<double> _Quantity;
+        
+    	public string UnitOfMeasure
+    	{ 
+    		get { return _UnitOfMeasure; }
+    		set
+    		{
+    			if (Equals(value, _UnitOfMeasure)) return;
+    			_UnitOfMeasure = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _UnitOfMeasure;
+        
+    	public byte[] EntryTimeStamp
+    	{ 
+    		get { return _EntryTimeStamp; }
+    		set
+    		{
+    			if (Equals(value, _EntryTimeStamp)) return;
+    			_EntryTimeStamp = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private byte[] _EntryTimeStamp;
     }
 }

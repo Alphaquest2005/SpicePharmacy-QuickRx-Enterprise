@@ -9,20 +9,52 @@
 
 namespace RMSDataAccessLayer
 {
+    using System.ComponentModel;
+    using TrackableEntities;
     using System;
     using System.Collections.Generic;
+    using TrackableEntities.Client;
     
     public partial class Doctor : Person
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
-            this.Prescription = new HashSet<Prescription>();
+            this.Prescription = new ChangeTrackingCollection<Prescription>();
+            CustomStartup();
+            this.PropertyChanged += UpdatePropertyChanged;
         }
+        partial void CustomStartup();
     
-        public string Code { get; set; }
+            private void UpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (!string.IsNullOrEmpty(e.PropertyName) && (!Environment.StackTrace.Contains("Internal.Materialization")) && TrackingState == TrackingState.Unchanged)
+                {
+                    TrackingState = TrackingState.Modified;
+                }
+            }
+        
+    	public string Code
+    	{ 
+    		get { return _Code; }
+    		set
+    		{
+    			if (Equals(value, _Code)) return;
+    			_Code = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private string _Code;
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prescription> Prescription { get; set; }
+    	public ChangeTrackingCollection<Prescription> Prescription
+    	{
+    		get { return _Prescription; }
+    		set
+    		{
+    			if (Equals(value, _Prescription)) return;
+    			_Prescription = value;
+    			NotifyPropertyChanged();
+    		}
+    	}
+    	private ChangeTrackingCollection<Prescription> _Prescription;
     }
 }
