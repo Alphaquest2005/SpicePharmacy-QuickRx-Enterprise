@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdfbaf6e5d1d46b088b50d56d5d664ff" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="RMSModel.Batch" Width="1.5" PointX="5.1541476534466018" PointY="3.0757807060497724" />
+        <EntityTypeShape EntityType="RMSModel.Item" Width="1.5" PointX="16" PointY="3.875" />
+        <EntityTypeShape EntityType="RMSModel.TransactionHold" Width="2.25" PointX="8.375" PointY="2.5" />
+        <EntityTypeShape EntityType="RMSModel.TransactionHoldEntry" Width="2.25" PointX="12.25" PointY="2.25" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

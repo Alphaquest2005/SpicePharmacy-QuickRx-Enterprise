@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RMSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RMSModelStoreContainer">
+    <EntitySet Name="Batch" EntityType="RMSModel.Store.Batch" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Item" EntityType="RMSModel.Store.Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TransactionHold" EntityType="RMSModel.Store.TransactionHold" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TransactionHoldEntry" EntityType="RMSModel.Store.TransactionHoldEntry" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Batch">
+    <Key>
+      <PropertyRef Name="BatchNumber" />
+    </Key>
+    <Property Name="CustomerDepositMade" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CustomerDepositRedeemed" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+    <Property Name="StoreID" Type="int" Nullable="false" />
+    <Property Name="BatchNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
+    <Property Name="RegisterID" Type="int" Nullable="false" />
+    <Property Name="OpeningTime" Type="datetime" Nullable="true" />
+    <Property Name="ClosingTime" Type="datetime" Nullable="true" />
+    <Property Name="OpeningTotal" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ClosingTotal" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Sales" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Returns" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Tax" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="SalesPlusTax" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Commission" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PaidOut" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Dropped" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PaidOnAccount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PaidToAccount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CustomerCount" Type="int" Nullable="false" />
+    <Property Name="NoSalesCount" Type="int" Nullable="false" />
+    <Property Name="AbortedTransCount" Type="int" Nullable="false" />
+    <Property Name="TotalTendered" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalChange" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Discounts" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CostOfGoods" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LayawayPaid" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LayawayClosed" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Shipping" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DBTimeStamp" Type="binary" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="8" />
+    <Property Name="TenderRoundingError" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DebitSurcharge" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CashBackSurcharge" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Vouchers" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="BinLocation" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="BuydownPrice" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="BuydownQuantity" Type="float" Nullable="false" />
+    <Property Name="CommissionAmount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CommissionMaximum" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CommissionMode" Type="int" Nullable="false" />
+    <Property Name="CommissionPercentProfit" Type="real" Nullable="false" />
+    <Property Name="CommissionPercentSale" Type="real" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="FoodStampable" Type="bit" Nullable="false" />
+    <Property Name="HQID" Type="int" Nullable="false" />
+    <Property Name="ItemNotDiscountable" Type="bit" Nullable="false" />
+    <Property Name="LastReceived" Type="datetime" Nullable="true" />
+    <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+    <Property Name="Notes" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="QuantityCommitted" Type="float" Nullable="false" />
+    <Property Name="SerialNumberCount" Type="int" Nullable="false" />
+    <Property Name="TareWeightPercent" Type="float" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemLookupCode" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="MessageID" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PriceA" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PriceB" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PriceC" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="SalePrice" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="SaleStartDate" Type="datetime" Nullable="true" />
+    <Property Name="SaleEndDate" Type="datetime" Nullable="true" />
+    <Property Name="QuantityDiscountID" Type="int" Nullable="false" />
+    <Property Name="TaxID" Type="int" Nullable="false" />
+    <Property Name="ItemType" Type="smallint" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Quantity" Type="float" Nullable="false" />
+    <Property Name="ReorderPoint" Type="float" Nullable="false" />
+    <Property Name="RestockLevel" Type="float" Nullable="false" />
+    <Property Name="TareWeight" Type="float" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="TagAlongItem" Type="int" Nullable="false" />
+    <Property Name="TagAlongQuantity" Type="float" Nullable="false" />
+    <Property Name="ParentItem" Type="int" Nullable="false" />
+    <Property Name="ParentQuantity" Type="float" Nullable="false" />
+    <Property Name="BarcodeFormat" Type="smallint" Nullable="false" />
+    <Property Name="PriceLowerBound" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PriceUpperBound" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PictureName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastSold" Type="datetime" Nullable="true" />
+    <Property Name="ExtendedDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubDescription1" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="SubDescription2" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="SubDescription3" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="UnitOfMeasure" Type="nvarchar" Nullable="false" MaxLength="4" />
+    <Property Name="SubCategoryID" Type="int" Nullable="false" />
+    <Property Name="QuantityEntryNotAllowed" Type="bit" Nullable="false" />
+    <Property Name="PriceMustBeEntered" Type="bit" Nullable="false" />
+    <Property Name="BlockSalesReason" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="BlockSalesAfterDate" Type="datetime" Nullable="true" />
+    <Property Name="Weight" Type="float" Nullable="false" />
+    <Property Name="Taxable" Type="bit" Nullable="false" />
+    <Property Name="DBTimeStamp" Type="binary" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="8" />
+    <Property Name="BlockSalesBeforeDate" Type="datetime" Nullable="true" />
+    <Property Name="LastCost" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ReplacementCost" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="WebItem" Type="bit" Nullable="false" />
+    <Property Name="BlockSalesType" Type="int" Nullable="false" />
+    <Property Name="BlockSalesScheduleID" Type="int" Nullable="false" />
+    <Property Name="SaleType" Type="int" Nullable="false" />
+    <Property Name="SaleScheduleID" Type="int" Nullable="false" />
+    <Property Name="Consignment" Type="bit" Nullable="false" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastCounted" Type="datetime" Nullable="true" />
+    <Property Name="DoNotOrder" Type="bit" Nullable="false" />
+    <Property Name="MSRP" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsuallyShip" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="NumberFormat" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="ItemCannotBeRet" Type="bit" Nullable="true" />
+    <Property Name="ItemCannotBeSold" Type="bit" Nullable="true" />
+    <Property Name="IsAutogenerated" Type="bit" Nullable="true" />
+    <Property Name="IsGlobalvoucher" Type="bit" Nullable="false" />
+    <Property Name="DeleteZeroBalanceEntry" Type="bit" Nullable="true" />
+    <Property Name="TenderID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransactionHold">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreID" Type="int" Nullable="false" />
+    <Property Name="TransactionType" Type="smallint" Nullable="false" />
+    <Property Name="HoldComment" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="RecallID" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="PriceLevel" Type="smallint" Nullable="false" />
+    <Property Name="DiscountMethod" Type="smallint" Nullable="false" />
+    <Property Name="DiscountPercent" Type="float" Nullable="false" />
+    <Property Name="Taxable" Type="bit" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="DeltaDeposit" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="DepositOverride" Type="bit" Nullable="false" />
+    <Property Name="DepositPrevious" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PaymentsPrevious" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TaxPrevious" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="SalesRepID" Type="int" Nullable="false" />
+    <Property Name="ShipToID" Type="int" Nullable="false" />
+    <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+    <Property Name="ExpirationOrDueDate" Type="datetime" Nullable="false" />
+    <Property Name="ReturnMode" Type="bit" Nullable="false" />
+    <Property Name="ReferenceNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ShippingChargePurchased" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ShippingChargeOverride" Type="bit" Nullable="false" />
+    <Property Name="ShippingServiceID" Type="int" Nullable="false" />
+    <Property Name="ShippingTrackingNumber" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="ShippingNotes" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DBTimeStamp" Type="binary" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="8" />
+    <Property Name="ReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="ExchangeID" Type="int" Nullable="false" />
+    <Property Name="ChannelType" Type="int" Nullable="false" />
+    <Property Name="DefaultDiscountReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="DefaultReturnReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="DefaultTaxChangeReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="BatchNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransactionHoldEntry">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EntryKey" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="StoreID" Type="int" Nullable="false" />
+    <Property Name="TransactionHoldID" Type="int" Nullable="false" />
+    <Property Name="RecallID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="QuantityPurchased" Type="float" Nullable="false" />
+    <Property Name="QuantityOnOrder" Type="float" Nullable="false" />
+    <Property Name="QuantityRTD" Type="float" Nullable="false" />
+    <Property Name="QuantityReserved" Type="float" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="FullPrice" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="PriceSource" Type="smallint" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="DetailID" Type="int" Nullable="false" />
+    <Property Name="Taxable" Type="bit" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="SalesRepID" Type="int" Nullable="false" />
+    <Property Name="SerialNumber1" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="SerialNumber2" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="SerialNumber3" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="VoucherNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="VoucherExpirationDate" Type="datetime" Nullable="true" />
+    <Property Name="DBTimeStamp" Type="binary" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="8" />
+    <Property Name="DiscountReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="ReturnReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="TaxChangeReasonCodeID" Type="int" Nullable="false" />
+    <Property Name="ItemTaxID" Type="int" Nullable="false" />
+    <Property Name="ComponentQuantityReserved" Type="float" Nullable="false" />
+    <Property Name="TransactionTime" Type="datetime" Nullable="true" />
+    <Property Name="IsAddMoney" Type="bit" Nullable="false" />
+    <Property Name="VoucherID" Type="int" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RMSModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RMSEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Batch" EntityType="RMSModel.Batch" />
+          <EntitySet Name="Item" EntityType="RMSModel.Item" />
+          <EntitySet Name="TransactionHold" EntityType="RMSModel.TransactionHold" />
+          <EntitySet Name="TransactionHoldEntry" EntityType="RMSModel.TransactionHoldEntry" />
+        </EntityContainer>
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="BatchNumber" />
+          </Key>
+          <Property Type="Decimal" Name="CustomerDepositMade" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CustomerDepositRedeemed" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="DateTime" Name="LastUpdated" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="StoreID" Nullable="false" />
+          <Property Type="Int32" Name="BatchNumber" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Status" Nullable="false" />
+          <Property Type="Int32" Name="RegisterID" Nullable="false" />
+          <Property Type="DateTime" Name="OpeningTime" Precision="3" />
+          <Property Type="DateTime" Name="ClosingTime" Precision="3" />
+          <Property Type="Decimal" Name="OpeningTotal" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="ClosingTotal" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Sales" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Returns" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Tax" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="SalesPlusTax" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Commission" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PaidOut" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Dropped" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PaidOnAccount" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PaidToAccount" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="CustomerCount" Nullable="false" />
+          <Property Type="Int32" Name="NoSalesCount" Nullable="false" />
+          <Property Type="Int32" Name="AbortedTransCount" Nullable="false" />
+          <Property Type="Decimal" Name="TotalTendered" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TotalChange" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Discounts" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CostOfGoods" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="LayawayPaid" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="LayawayClosed" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Shipping" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Binary" Name="DBTimeStamp" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Type="Decimal" Name="TenderRoundingError" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="DebitSurcharge" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CashBackSurcharge" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Vouchers" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="BinLocation" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="BuydownPrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Double" Name="BuydownQuantity" Nullable="false" />
+          <Property Type="Decimal" Name="CommissionAmount" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="CommissionMaximum" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="CommissionMode" Nullable="false" />
+          <Property Type="Single" Name="CommissionPercentProfit" Nullable="false" />
+          <Property Type="Single" Name="CommissionPercentSale" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="FoodStampable" Nullable="false" />
+          <Property Type="Int32" Name="HQID" Nullable="false" />
+          <Property Type="Boolean" Name="ItemNotDiscountable" Nullable="false" />
+          <Property Type="DateTime" Name="LastReceived" Precision="3" />
+          <Property Type="DateTime" Name="LastUpdated" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Notes" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="QuantityCommitted" Nullable="false" />
+          <Property Type="Int32" Name="SerialNumberCount" Nullable="false" />
+          <Property Type="Double" Name="TareWeightPercent" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ItemLookupCode" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="DepartmentID" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="Int32" Name="MessageID" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PriceA" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PriceB" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PriceC" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="SalePrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="DateTime" Name="SaleStartDate" Precision="3" />
+          <Property Type="DateTime" Name="SaleEndDate" Precision="3" />
+          <Property Type="Int32" Name="QuantityDiscountID" Nullable="false" />
+          <Property Type="Int32" Name="TaxID" Nullable="false" />
+          <Property Type="Int16" Name="ItemType" Nullable="false" />
+          <Property Type="Decimal" Name="Cost" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Double" Name="Quantity" Nullable="false" />
+          <Property Type="Double" Name="ReorderPoint" Nullable="false" />
+          <Property Type="Double" Name="RestockLevel" Nullable="false" />
+          <Property Type="Double" Name="TareWeight" Nullable="false" />
+          <Property Type="Int32" Name="SupplierID" Nullable="false" />
+          <Property Type="Int32" Name="TagAlongItem" Nullable="false" />
+          <Property Type="Double" Name="TagAlongQuantity" Nullable="false" />
+          <Property Type="Int32" Name="ParentItem" Nullable="false" />
+          <Property Type="Double" Name="ParentQuantity" Nullable="false" />
+          <Property Type="Int16" Name="BarcodeFormat" Nullable="false" />
+          <Property Type="Decimal" Name="PriceLowerBound" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PriceUpperBound" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="PictureName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastSold" Precision="3" />
+          <Property Type="String" Name="ExtendedDescription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubDescription1" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubDescription2" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubDescription3" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UnitOfMeasure" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SubCategoryID" Nullable="false" />
+          <Property Type="Boolean" Name="QuantityEntryNotAllowed" Nullable="false" />
+          <Property Type="Boolean" Name="PriceMustBeEntered" Nullable="false" />
+          <Property Type="String" Name="BlockSalesReason" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="BlockSalesAfterDate" Precision="3" />
+          <Property Type="Double" Name="Weight" Nullable="false" />
+          <Property Type="Boolean" Name="Taxable" Nullable="false" />
+          <Property Type="Binary" Name="DBTimeStamp" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Type="DateTime" Name="BlockSalesBeforeDate" Precision="3" />
+          <Property Type="Decimal" Name="LastCost" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="ReplacementCost" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="WebItem" Nullable="false" />
+          <Property Type="Int32" Name="BlockSalesType" Nullable="false" />
+          <Property Type="Int32" Name="BlockSalesScheduleID" Nullable="false" />
+          <Property Type="Int32" Name="SaleType" Nullable="false" />
+          <Property Type="Int32" Name="SaleScheduleID" Nullable="false" />
+          <Property Type="Boolean" Name="Consignment" Nullable="false" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="DateTime" Name="LastCounted" Precision="3" />
+          <Property Type="Boolean" Name="DoNotOrder" Nullable="false" />
+          <Property Type="Decimal" Name="MSRP" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UsuallyShip" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NumberFormat" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="ItemCannotBeRet" />
+          <Property Type="Boolean" Name="ItemCannotBeSold" />
+          <Property Type="Boolean" Name="IsAutogenerated" />
+          <Property Type="Boolean" Name="IsGlobalvoucher" Nullable="false" />
+          <Property Type="Boolean" Name="DeleteZeroBalanceEntry" />
+          <Property Type="Int32" Name="TenderID" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionHold">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="StoreID" Nullable="false" />
+          <Property Type="Int16" Name="TransactionType" Nullable="false" />
+          <Property Type="String" Name="HoldComment" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RecallID" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="PriceLevel" Nullable="false" />
+          <Property Type="Int16" Name="DiscountMethod" Nullable="false" />
+          <Property Type="Double" Name="DiscountPercent" Nullable="false" />
+          <Property Type="Boolean" Name="Taxable" Nullable="false" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="Decimal" Name="DeltaDeposit" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="DepositOverride" Nullable="false" />
+          <Property Type="Decimal" Name="DepositPrevious" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="PaymentsPrevious" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="TaxPrevious" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="SalesRepID" Nullable="false" />
+          <Property Type="Int32" Name="ShipToID" Nullable="false" />
+          <Property Type="DateTime" Name="TransactionTime" Precision="3" />
+          <Property Type="DateTime" Name="ExpirationOrDueDate" Precision="3" />
+          <Property Type="Boolean" Name="ReturnMode" Nullable="false" />
+          <Property Type="String" Name="ReferenceNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="ShippingChargePurchased" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="ShippingChargeOverride" Nullable="false" />
+          <Property Type="Int32" Name="ShippingServiceID" Nullable="false" />
+          <Property Type="String" Name="ShippingTrackingNumber" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShippingNotes" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="DBTimeStamp" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Type="Int32" Name="ReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="ExchangeID" Nullable="false" />
+          <Property Type="Int32" Name="ChannelType" Nullable="false" />
+          <Property Type="Int32" Name="DefaultDiscountReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="DefaultReturnReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="DefaultTaxChangeReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="BatchNumber" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionHoldEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EntryKey" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="StoreID" Nullable="false" />
+          <Property Type="Int32" Name="TransactionHoldID" Nullable="false" />
+          <Property Type="Int32" Name="RecallID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="QuantityPurchased" Nullable="false" />
+          <Property Type="Double" Name="QuantityOnOrder" Nullable="false" />
+          <Property Type="Double" Name="QuantityRTD" Nullable="false" />
+          <Property Type="Double" Name="QuantityReserved" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="FullPrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Int16" Name="PriceSource" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="DetailID" Nullable="false" />
+          <Property Type="Boolean" Name="Taxable" Nullable="false" />
+          <Property Type="Int32" Name="ItemID" Nullable="false" />
+          <Property Type="Int32" Name="SalesRepID" Nullable="false" />
+          <Property Type="String" Name="SerialNumber1" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SerialNumber2" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SerialNumber3" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VoucherNumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="VoucherExpirationDate" Precision="3" />
+          <Property Type="Binary" Name="DBTimeStamp" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Type="Int32" Name="DiscountReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="ReturnReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="TaxChangeReasonCodeID" Nullable="false" />
+          <Property Type="Int32" Name="ItemTaxID" Nullable="false" />
+          <Property Type="Double" Name="ComponentQuantityReserved" Nullable="false" />
+          <Property Type="DateTime" Name="TransactionTime" Precision="3" />
+          <Property Type="Boolean" Name="IsAddMoney" Nullable="false" />
+          <Property Type="Int32" Name="VoucherID" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RMSModelStoreContainer" CdmEntityContainer="RMSEntities">
+    <EntitySetMapping Name="Batch">
+      <EntityTypeMapping TypeName="IsTypeOf(RMSModel.Batch)">
+        <MappingFragment StoreEntitySet="Batch">
+          <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+          <ScalarProperty Name="CustomerDepositMade" ColumnName="CustomerDepositMade" />
+          <ScalarProperty Name="CustomerDepositRedeemed" ColumnName="CustomerDepositRedeemed" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+          <ScalarProperty Name="OpeningTime" ColumnName="OpeningTime" />
+          <ScalarProperty Name="ClosingTime" ColumnName="ClosingTime" />
+          <ScalarProperty Name="OpeningTotal" ColumnName="OpeningTotal" />
+          <ScalarProperty Name="ClosingTotal" ColumnName="ClosingTotal" />
+          <ScalarProperty Name="Sales" ColumnName="Sales" />
+          <ScalarProperty Name="Returns" ColumnName="Returns" />
+          <ScalarProperty Name="Tax" ColumnName="Tax" />
+          <ScalarProperty Name="SalesPlusTax" ColumnName="SalesPlusTax" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="PaidOut" ColumnName="PaidOut" />
+          <ScalarProperty Name="Dropped" ColumnName="Dropped" />
+          <ScalarProperty Name="PaidOnAccount" ColumnName="PaidOnAccount" />
+          <ScalarProperty Name="PaidToAccount" ColumnName="PaidToAccount" />
+          <ScalarProperty Name="CustomerCount" ColumnName="CustomerCount" />
+          <ScalarProperty Name="NoSalesCount" ColumnName="NoSalesCount" />
+          <ScalarProperty Name="AbortedTransCount" ColumnName="AbortedTransCount" />
+          <ScalarProperty Name="TotalTendered" ColumnName="TotalTendered" />
+          <ScalarProperty Name="TotalChange" ColumnName="TotalChange" />
+          <ScalarProperty Name="Discounts" ColumnName="Discounts" />
+          <ScalarProperty Name="CostOfGoods" ColumnName="CostOfGoods" />
+          <ScalarProperty Name="LayawayPaid" ColumnName="LayawayPaid" />
+          <ScalarProperty Name="LayawayClosed" ColumnName="LayawayClosed" />
+          <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+          <ScalarProperty Name="DBTimeStamp" ColumnName="DBTimeStamp" />
+          <ScalarProperty Name="TenderRoundingError" ColumnName="TenderRoundingError" />
+          <ScalarProperty Name="DebitSurcharge" ColumnName="DebitSurcharge" />
+          <ScalarProperty Name="CashBackSurcharge" ColumnName="CashBackSurcharge" />
+          <ScalarProperty Name="Vouchers" ColumnName="Vouchers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item">
+      <EntityTypeMapping TypeName="IsTypeOf(RMSModel.Item)">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="BinLocation" ColumnName="BinLocation" />
+          <ScalarProperty Name="BuydownPrice" ColumnName="BuydownPrice" />
+          <ScalarProperty Name="BuydownQuantity" ColumnName="BuydownQuantity" />
+          <ScalarProperty Name="CommissionAmount" ColumnName="CommissionAmount" />
+          <ScalarProperty Name="CommissionMaximum" ColumnName="CommissionMaximum" />
+          <ScalarProperty Name="CommissionMode" ColumnName="CommissionMode" />
+          <ScalarProperty Name="CommissionPercentProfit" ColumnName="CommissionPercentProfit" />
+          <ScalarProperty Name="CommissionPercentSale" ColumnName="CommissionPercentSale" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FoodStampable" ColumnName="FoodStampable" />
+          <ScalarProperty Name="HQID" ColumnName="HQID" />
+          <ScalarProperty Name="ItemNotDiscountable" ColumnName="ItemNotDiscountable" />
+          <ScalarProperty Name="LastReceived" ColumnName="LastReceived" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="QuantityCommitted" ColumnName="QuantityCommitted" />
+          <ScalarProperty Name="SerialNumberCount" ColumnName="SerialNumberCount" />
+          <ScalarProperty Name="TareWeightPercent" ColumnName="TareWeightPercent" />
+          <ScalarProperty Name="ItemLookupCode" ColumnName="ItemLookupCode" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceA" ColumnName="PriceA" />
+          <ScalarProperty Name="PriceB" ColumnName="PriceB" />
+          <ScalarProperty Name="PriceC" ColumnName="PriceC" />
+          <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+          <ScalarProperty Name="SaleStartDate" ColumnName="SaleStartDate" />
+          <ScalarProperty Name="SaleEndDate" ColumnName="SaleEndDate" />
+          <ScalarProperty Name="QuantityDiscountID" ColumnName="QuantityDiscountID" />
+          <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ReorderPoint" ColumnName="ReorderPoint" />
+          <ScalarProperty Name="RestockLevel" ColumnName="RestockLevel" />
+          <ScalarProperty Name="TareWeight" ColumnName="TareWeight" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="TagAlongItem" ColumnName="TagAlongItem" />
+          <ScalarProperty Name="TagAlongQuantity" ColumnName="TagAlongQuantity" />
+          <ScalarProperty Name="ParentItem" ColumnName="ParentItem" />
+          <ScalarProperty Name="ParentQuantity" ColumnName="ParentQuantity" />
+          <ScalarProperty Name="BarcodeFormat" ColumnName="BarcodeFormat" />
+          <ScalarProperty Name="PriceLowerBound" ColumnName="PriceLowerBound" />
+          <ScalarProperty Name="PriceUpperBound" ColumnName="PriceUpperBound" />
+          <ScalarProperty Name="PictureName" ColumnName="PictureName" />
+          <ScalarProperty Name="LastSold" ColumnName="LastSold" />
+          <ScalarProperty Name="ExtendedDescription" ColumnName="ExtendedDescription" />
+          <ScalarProperty Name="SubDescription1" ColumnName="SubDescription1" />
+          <ScalarProperty Name="SubDescription2" ColumnName="SubDescription2" />
+          <ScalarProperty Name="SubDescription3" ColumnName="SubDescription3" />
+          <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
+          <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+          <ScalarProperty Name="QuantityEntryNotAllowed" ColumnName="QuantityEntryNotAllowed" />
+          <ScalarProperty Name="PriceMustBeEntered" ColumnName="PriceMustBeEntered" />
+          <ScalarProperty Name="BlockSalesReason" ColumnName="BlockSalesReason" />
+          <ScalarProperty Name="BlockSalesAfterDate" ColumnName="BlockSalesAfterDate" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Taxable" ColumnName="Taxable" />
+          <ScalarProperty Name="DBTimeStamp" ColumnName="DBTimeStamp" />
+          <ScalarProperty Name="BlockSalesBeforeDate" ColumnName="BlockSalesBeforeDate" />
+          <ScalarProperty Name="LastCost" ColumnName="LastCost" />
+          <ScalarProperty Name="ReplacementCost" ColumnName="ReplacementCost" />
+          <ScalarProperty Name="WebItem" ColumnName="WebItem" />
+          <ScalarProperty Name="BlockSalesType" ColumnName="BlockSalesType" />
+          <ScalarProperty Name="BlockSalesScheduleID" ColumnName="BlockSalesScheduleID" />
+          <ScalarProperty Name="SaleType" ColumnName="SaleType" />
+          <ScalarProperty Name="SaleScheduleID" ColumnName="SaleScheduleID" />
+          <ScalarProperty Name="Consignment" ColumnName="Consignment" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastCounted" ColumnName="LastCounted" />
+          <ScalarProperty Name="DoNotOrder" ColumnName="DoNotOrder" />
+          <ScalarProperty Name="MSRP" ColumnName="MSRP" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="UsuallyShip" ColumnName="UsuallyShip" />
+          <ScalarProperty Name="NumberFormat" ColumnName="NumberFormat" />
+          <ScalarProperty Name="ItemCannotBeRet" ColumnName="ItemCannotBeRet" />
+          <ScalarProperty Name="ItemCannotBeSold" ColumnName="ItemCannotBeSold" />
+          <ScalarProperty Name="IsAutogenerated" ColumnName="IsAutogenerated" />
+          <ScalarProperty Name="IsGlobalvoucher" ColumnName="IsGlobalvoucher" />
+          <ScalarProperty Name="DeleteZeroBalanceEntry" ColumnName="DeleteZeroBalanceEntry" />
+          <ScalarProperty Name="TenderID" ColumnName="TenderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionHold">
+      <EntityTypeMapping TypeName="IsTypeOf(RMSModel.TransactionHold)">
+        <MappingFragment StoreEntitySet="TransactionHold">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="HoldComment" ColumnName="HoldComment" />
+          <ScalarProperty Name="RecallID" ColumnName="RecallID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="PriceLevel" ColumnName="PriceLevel" />
+          <ScalarProperty Name="DiscountMethod" ColumnName="DiscountMethod" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="Taxable" ColumnName="Taxable" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="DeltaDeposit" ColumnName="DeltaDeposit" />
+          <ScalarProperty Name="DepositOverride" ColumnName="DepositOverride" />
+          <ScalarProperty Name="DepositPrevious" ColumnName="DepositPrevious" />
+          <ScalarProperty Name="PaymentsPrevious" ColumnName="PaymentsPrevious" />
+          <ScalarProperty Name="TaxPrevious" ColumnName="TaxPrevious" />
+          <ScalarProperty Name="SalesRepID" ColumnName="SalesRepID" />
+          <ScalarProperty Name="ShipToID" ColumnName="ShipToID" />
+          <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+          <ScalarProperty Name="ExpirationOrDueDate" ColumnName="ExpirationOrDueDate" />
+          <ScalarProperty Name="ReturnMode" ColumnName="ReturnMode" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="ShippingChargePurchased" ColumnName="ShippingChargePurchased" />
+          <ScalarProperty Name="ShippingChargeOverride" ColumnName="ShippingChargeOverride" />
+          <ScalarProperty Name="ShippingServiceID" ColumnName="ShippingServiceID" />
+          <ScalarProperty Name="ShippingTrackingNumber" ColumnName="ShippingTrackingNumber" />
+          <ScalarProperty Name="ShippingNotes" ColumnName="ShippingNotes" />
+          <ScalarProperty Name="DBTimeStamp" ColumnName="DBTimeStamp" />
+          <ScalarProperty Name="ReasonCodeID" ColumnName="ReasonCodeID" />
+          <ScalarProperty Name="ExchangeID" ColumnName="ExchangeID" />
+          <ScalarProperty Name="ChannelType" ColumnName="ChannelType" />
+          <ScalarProperty Name="DefaultDiscountReasonCodeID" ColumnName="DefaultDiscountReasonCodeID" />
+          <ScalarProperty Name="DefaultReturnReasonCodeID" ColumnName="DefaultReturnReasonCodeID" />
+          <ScalarProperty Name="DefaultTaxChangeReasonCodeID" ColumnName="DefaultTaxChangeReasonCodeID" />
+          <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionHoldEntry">
+      <EntityTypeMapping TypeName="IsTypeOf(RMSModel.TransactionHoldEntry)">
+        <MappingFragment StoreEntitySet="TransactionHoldEntry">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EntryKey" ColumnName="EntryKey" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="TransactionHoldID" ColumnName="TransactionHoldID" />
+          <ScalarProperty Name="RecallID" ColumnName="RecallID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="QuantityPurchased" ColumnName="QuantityPurchased" />
+          <ScalarProperty Name="QuantityOnOrder" ColumnName="QuantityOnOrder" />
+          <ScalarProperty Name="QuantityRTD" ColumnName="QuantityRTD" />
+          <ScalarProperty Name="QuantityReserved" ColumnName="QuantityReserved" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="FullPrice" ColumnName="FullPrice" />
+          <ScalarProperty Name="PriceSource" ColumnName="PriceSource" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+          <ScalarProperty Name="Taxable" ColumnName="Taxable" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="SalesRepID" ColumnName="SalesRepID" />
+          <ScalarProperty Name="SerialNumber1" ColumnName="SerialNumber1" />
+          <ScalarProperty Name="SerialNumber2" ColumnName="SerialNumber2" />
+          <ScalarProperty Name="SerialNumber3" ColumnName="SerialNumber3" />
+          <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+          <ScalarProperty Name="VoucherExpirationDate" ColumnName="VoucherExpirationDate" />
+          <ScalarProperty Name="DBTimeStamp" ColumnName="DBTimeStamp" />
+          <ScalarProperty Name="DiscountReasonCodeID" ColumnName="DiscountReasonCodeID" />
+          <ScalarProperty Name="ReturnReasonCodeID" ColumnName="ReturnReasonCodeID" />
+          <ScalarProperty Name="TaxChangeReasonCodeID" ColumnName="TaxChangeReasonCodeID" />
+          <ScalarProperty Name="ItemTaxID" ColumnName="ItemTaxID" />
+          <ScalarProperty Name="ComponentQuantityReserved" ColumnName="ComponentQuantityReserved" />
+          <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+          <ScalarProperty Name="IsAddMoney" ColumnName="IsAddMoney" />
+          <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

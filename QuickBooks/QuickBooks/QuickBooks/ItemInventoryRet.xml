@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ItemInventoryRet>
+	<!-- optional, may repeat -->
+	<ListID >IDTYPE</ListID>
+	<!-- required -->
+	<TimeCreated >12-MAR-2012 10:00:00 AM</TimeCreated>
+	<!-- required -->
+	<TimeModified >12-MAR-2012 10:00:00 AM</TimeModified>
+	<!-- required -->
+	<EditSequence >STRTYPE</EditSequence>
+	<!-- required -->
+	<Name >STRTYPE</Name>
+	<!-- required -->
+	<FullName >STRTYPE</FullName>
+	<!-- required -->
+	<BarCodeValue >STRTYPE</BarCodeValue>
+	<!-- optional -->
+	<IsActive >true</IsActive>
+	<!-- optional -->
+	<ClassRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</ClassRef>
+	<ParentRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</ParentRef>
+	<Sublevel >1000</Sublevel>
+	<!-- required -->
+	<ManufacturerPartNumber >STRTYPE</ManufacturerPartNumber>
+	<!-- optional -->
+	<UnitOfMeasureSetRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</UnitOfMeasureSetRef>
+	<SalesTaxCodeRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</SalesTaxCodeRef>
+	<SalesDesc >STRTYPE</SalesDesc>
+	<!-- optional -->
+	<SalesPrice >10.01</SalesPrice>
+	<!-- optional -->
+	<IncomeAccountRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</IncomeAccountRef>
+	<PurchaseDesc >STRTYPE</PurchaseDesc>
+	<!-- optional -->
+	<PurchaseCost >10.01</PurchaseCost>
+	<!-- optional -->
+	<COGSAccountRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</COGSAccountRef>
+	<PrefVendorRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</PrefVendorRef>
+	<AssetAccountRef>
+		<!-- optional -->
+		<ListID >IDTYPE</ListID>
+		<!-- optional -->
+		<FullName >STRTYPE</FullName>
+		<!-- optional -->
+	</AssetAccountRef>
+	<ReorderPoint >10.01</ReorderPoint>
+	<!-- optional -->
+	<Max >10.01</Max>
+	<!-- optional -->
+	<QuantityOnHand >10.01</QuantityOnHand>
+	<!-- optional -->
+	<AverageCost >10.01</AverageCost>
+	<!-- optional -->
+	<QuantityOnOrder >10.01</QuantityOnOrder>
+	<!-- optional -->
+	<QuantityOnSalesOrder >10.01</QuantityOnSalesOrder>
+	<!-- optional -->
+	<ExternalGUID >GUIDTYPE</ExternalGUID>
+	<!-- optional -->
+	<DataExtRet>
+		<!-- optional, may repeat -->
+		<OwnerID >GUIDTYPE</OwnerID>
+		<!-- optional -->
+		<DataExtName >STRTYPE</DataExtName>
+		<!-- required -->
+		<!-- DataExtType may have one of the following values: AMTTYPE, 12-MAR-2012 10:00:00 AM, 1000, PERCENTTYPE, 10.01, 10.01, STR1024TYPE, STR255TYPE -->
+		<DataExtType >ENUMTYPE</DataExtType>
+		<!-- required -->
+		<DataExtValue >STRTYPE</DataExtValue>
+		<!-- required -->
+	</DataExtRet>
+</ItemInventoryRet>
