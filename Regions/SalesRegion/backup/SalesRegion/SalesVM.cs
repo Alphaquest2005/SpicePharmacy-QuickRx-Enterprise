@@ -94,78 +94,7 @@ namespace SalesRegion
         }
 
 
-        public void CreateNewPrescription()
-        {
-            try
-            {
-
-                Logger.Log(LoggingLevel.Info, "Create New Prescription");
-                if (doctor == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Doctor is Missing");
-                    this.Status = "Doctor is Missing";
-                    return;
-                }
-
-                if (patient == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Patient is Missing");
-                    this.Status = "Patient is Missing";
-                    return;
-                }
-
-                if (Store == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Store is Missing");
-                    this.Status = "Store is Missing";
-                    return;
-                }
-
-                if (Batch == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Batch is Missing");
-                    this.Status = "Batch is Missing";
-                    return;
-                }
-
-                if (CashierEx == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Cashier is Missing");
-                    this.Status = "CashierEx is Missing";
-                    return;
-                }
-
-                if (Station == null)
-                {
-                    Logger.Log(LoggingLevel.Warning, "Station is Missing");
-                    this.Status = "Station is Missing";
-                    return;
-                }
-                Prescription txn = new Prescription()
-                {
-                    BatchId = Batch.BatchId,
-                    StationId = Station.StationId,
-                    Time = DateTime.Now,
-                    CashierId = CashierEx.Id,
-                    PharmacistId = (CashierEx.Role == "Pharmacist" ? CashierEx.Id : null as int?),
-                    StoreCode = Store.StoreCode,
-                    OpenClose = true,
-                    DoctorId = doctor.Id,
-                    PatientId = patient.Id,
-                    Patient = patient,
-                    Doctor = doctor,
-                    Cashier = CashierEx,
-                    Pharmacist = CashierEx.Role == "Pharmacist" ? CashierEx : null,
-                    TrackingState = TrackingState.Added
-                };
-                Logger.Log(LoggingLevel.Info, "Prescription Created");
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(LoggingLevel.Error, ex.Message + ex.StackTrace);
-                throw ex;
-            }
-        }
+       
 
 
         //+ ToDo: Replace this with your own data fields
@@ -262,7 +191,7 @@ namespace SalesRegion
         private void Set_TransactionData(TransactionBase value)
         {
             transactionData = value;
-            SetTransactionNumber(transactionData);
+            
            SendMessage(MessageToken.TransactionDataChanged,
                 new NotificationEventArgs<TransactionBase>(MessageToken.TransactionDataChanged, transactionData));
 
@@ -1652,17 +1581,25 @@ namespace SalesRegion
                    try
                    {
                        var tstate = TransactionData.TrackingState;
-                        SetTransactionNumber(TransactionData);
+                       
                         ctx.ApplyChanges(TransactionData);
                         ctx.SaveChanges();
-                        if (tstate == TrackingState.Added)
+                       if (tstate == TrackingState.Added)
                        {
-                            SetTransactionNumber(TransactionData);
-                            ctx.SaveChanges();
+                           if (SetTransactionNumber(TransactionData))
+                           {
+                               ctx.ApplyChanges(TransactionData);
+                                ctx.SaveChanges();
+
+                               Store.TransactionSeed += 1;
+
+                               ctx.ApplyChanges(Store);
+                               ctx.SaveChanges();
+                           }
                        }
-                       
-                        
-                        TransactionData.AcceptChanges();
+
+
+                       TransactionData.AcceptChanges();
                         
                     }
                     catch (Exception ex1)
@@ -1730,12 +1667,14 @@ namespace SalesRegion
             }
         }
 
-        private void SetTransactionNumber(TransactionBase t)
+        private bool SetTransactionNumber(TransactionBase t)
         {
             if (t != null && (t.TransactionNumber == null || t.TransactionNumber == "0"))
             {
-                t.TransactionNumber = t.TransactionId.ToString();
+                t.TransactionNumber = t.Time.Year + "-" + Store.TransactionSeed.ToString();
+                return true;
             }
+            return false;
         }
 
         private void CleanTransactionNavProperties(TransactionBase titm, RMSModel ctx)
@@ -1843,18 +1782,22 @@ namespace SalesRegion
         {
             try
             {
-                var trn = new Prescription()
+                using (var ctx = new RMSModel())
                 {
-                    StationId = Station.StationId,
-                    BatchId = Batch.BatchId,
-                    Time = DateTime.Now,
-                    CashierId = _cashier.Id,
-                    StoreCode = Store.StoreCode,
-                    TrackingState = TrackingState.Added
-                };
+                    var trn = new Prescription()
+                    {
+                        StationId = Station.StationId,
+                        BatchId = Batch.BatchId,
+                        Time = DateTime.Now,
+                        CashierId = _cashier.Id,
+                        StoreCode = Store.StoreCode,
+                        TrackingState = TrackingState.Added
+                    };
+
+                    return trn;
+                }
 
 
-                return trn;
             }
             catch (Exception ex)
             {

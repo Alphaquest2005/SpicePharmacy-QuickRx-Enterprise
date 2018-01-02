@@ -20,7 +20,6 @@ namespace RMSDataAccessLayer
         public Store()
         {
             this.TransactionSeed = 0;
-            this.SeedTransaction = 0;
             this.Station = new ChangeTrackingCollection<Station>();
             CustomStartup();
             this.PropertyChanged += UpdatePropertyChanged;
@@ -94,18 +93,6 @@ namespace RMSDataAccessLayer
     		}
     	}
     	private int _TransactionSeed;
-        
-    	public int SeedTransaction
-    	{ 
-    		get { return _SeedTransaction; }
-    		set
-    		{
-    			if (Equals(value, _SeedTransaction)) return;
-    			_SeedTransaction = value;
-    			NotifyPropertyChanged();
-    		}
-    	}
-    	private int _SeedTransaction;
         
     	public byte[] EntryTimeStamp
     	{ 

@@ -30,7 +30,7 @@ namespace RMSDataAccessLayer
        {
            get
            {
-               string value = Transaction.TransactionNumber;
+               string value = Transaction?.TransactionNumber;
                //if (value != null && value.ToString().Replace("0", "") != "")
                //    value = value.ToString().Remove(0, value.ToString().IndexOfAny("123456789".ToCharArray()));
                if (EntryNumber == null)

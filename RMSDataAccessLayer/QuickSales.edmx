@@ -167,7 +167,6 @@
           <Property Name="StoreAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="TransactionSeed" Type="int" Nullable="false" />
-          <Property Name="SeedTransaction" Type="int" Nullable="false" />
           <Property Name="EntryTimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="TransactionBase">
@@ -1074,7 +1073,6 @@ warning 6002: The table/view 'Spice-QuickSales-Enterprise.dbo.TransactionsView' 
           <Property Type="Int32" Name="CompanyId" Nullable="false" />
           <NavigationProperty Name="Station" Relationship="RMSEntities.StoreStation" FromRole="Store" ToRole="Station" />
           <Property Type="Int32" Name="TransactionSeed" Nullable="false" DefaultValue="0" />
-          <Property Type="Int32" Name="SeedTransaction" Nullable="false" DefaultValue="0" />
           <NavigationProperty Name="Company" Relationship="RMSEntities.CompanyStore" FromRole="Store" ToRole="Company" />
           <Property Name="EntryTimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         </EntityType>
@@ -1461,7 +1459,7 @@ warning 6002: The table/view 'Spice-QuickSales-Enterprise.dbo.TransactionsView' 
     <EntitySetMapping Name="Company">
       <EntityTypeMapping TypeName="IsTypeOf(RMSEntities.Company)">
         <MappingFragment StoreEntitySet="Company">
-          <ScalarProperty Name="EntryTimeStamp" ColumnName="EntryTimeStamp" />
+                <ScalarProperty Name="EntryTimeStamp" ColumnName="EntryTimeStamp" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1555,7 +1553,6 @@ warning 6002: The table/view 'Spice-QuickSales-Enterprise.dbo.TransactionsView' 
           <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
           <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="TransactionSeed" ColumnName="TransactionSeed" />
-          <ScalarProperty Name="SeedTransaction" ColumnName="SeedTransaction" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

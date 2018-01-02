@@ -259,8 +259,8 @@ public LogInScreen()
                 MessageBox.Show("Please Create Batch before continuing!");
                 return;
             }
-            if (Application.Current.Windows.Count == 1)
-            {
+            //if (Application.Current.Windows.Count == 1)
+            //{
                 SalesRegion.SalesVM.Instance.Batch = batch;
                 //SalesRegion.SalesVM.Instance.CashierEx = cashier;
                 SalesRegion.SalesVM.Instance.Station = station;
@@ -276,12 +276,12 @@ public LogInScreen()
                 var shell = new Shell();
                 shell.Show();
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                Application.Current.Shutdown();
-            }
+            //    Application.Current.Shutdown();
+            //}
         }
 
         private void BackBtn_Click_1(object sender, RoutedEventArgs e)

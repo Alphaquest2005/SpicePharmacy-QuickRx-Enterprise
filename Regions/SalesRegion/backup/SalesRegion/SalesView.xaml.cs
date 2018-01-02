@@ -469,10 +469,7 @@ namespace SalesRegion
             }
         }
 
-        private void UserControl_Unloaded_1(object sender, RoutedEventArgs e)
-        {
-            SalesVM.Instance.CreateNewPrescription();
-        }
+        
 
         private void EditDoctorTB_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
